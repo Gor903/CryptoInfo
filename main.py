@@ -6,29 +6,39 @@ from aiogram.enums import ParseMode
 import time, requests
 from functools import reduce
 
+from dotenv import load_dotenv
+import os
+load_dotenv()
+
 async def main():
+    # sranq eshelua
     coins = [
         "SHIB", "BTC", "DOGE"
     ]
+
+    # iranc xarkelua
     users = [
-        1893217856,
+        1893217856#, 674136968
     ]
     current_time = time.localtime()
     current_date_time = time.strftime("%Y-%m-%d %H:%M:%S", current_time)
     async with Bot(
-        token="6545393934:AAFOhBNw6w6MqSjcDBr9KgHfZdu6qGlJ6W0",
+        token=os.getenv("BOT_TOKEN"),
         default=DefaultBotProperties(
             parse_mode=ParseMode.HTML,
         ),
     ) as bot:
 
-        [await bot.send_message(
-            chat_id=user_id,
-            text=f"{current_date_time}\n\n" + reduce(
-                lambda a, b: a + b,
-                [get_prices(coin) for coin in coins]
-            )
-        ) for user_id in users]
+        try:
+            [await bot.send_message(
+                chat_id=user_id,
+                text=f"{current_date_time}\n\n" + reduce(
+                    lambda a, b: a + b,
+                    [get_prices(coin) for coin in coins]
+                )
+            ) for user_id in users]
+        except:
+            pass
 
 def get_prices(coin: str) -> dict:
     time_stamp=str(int(time.time() * 10 ** 3))
