@@ -13,7 +13,7 @@ load_dotenv()
 async def main():
     # sranq eshelua
     coins = [
-        "SHIB", "BTC", "DOGE"
+        "SHIB", "BTC"
     ]
 
     # iranc xarkelua
@@ -37,7 +37,8 @@ async def main():
                     [get_prices(coin) for coin in coins]
                 )
             ) for user_id in users]
-        except:
+        except Exception as e:
+            print(e)
             pass
 
 def get_prices(coin: str) -> dict:
@@ -54,14 +55,14 @@ def get_prices(coin: str) -> dict:
         headers=headers,
         params=params
     ).json()
+    if response["retMsg"] == "OK":
+        current_time = time.localtime()
 
-    current_time = time.localtime()
+        current_date_time = time.strftime("%Y-%m-%d %H:%M:%S", current_time)
 
-    current_date_time = time.strftime("%Y-%m-%d %H:%M:%S", current_time)
-
-    return f"💰 {coin}\n" + \
-        f"🟩: {response["result"]["list"][0]["ask1Price"]} | " +  \
-        f"🟥: {response["result"]["list"][0]["bid1Price"]}\n\n"
+        return f"💰 {coin}\n" + \
+            f"🟩: {response["result"]["list"][0]["ask1Price"]} | " +  \
+            f"🟥: {response["result"]["list"][0]["bid1Price"]}\n\n"
 
 
 if __name__ == "__main__":
