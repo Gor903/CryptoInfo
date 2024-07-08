@@ -37,8 +37,7 @@ async def main():
                     [get_prices(coin) for coin in coins]
                 )
             ) for user_id in users]
-        except Exception as e:
-            print(e)
+        except:
             pass
 
 def get_prices(coin: str) -> dict:
