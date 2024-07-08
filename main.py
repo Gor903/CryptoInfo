@@ -18,7 +18,7 @@ async def main():
 
     # iranc xarkelua
     users = [
-        1893217856#, 674136968
+        1893217856, 674136968
     ]
     current_time = time.localtime()
     current_date_time = time.strftime("%Y-%m-%d %H:%M:%S", current_time)
@@ -60,8 +60,8 @@ def get_prices(coin: str) -> dict:
         current_date_time = time.strftime("%Y-%m-%d %H:%M:%S", current_time)
 
         return f"💰 {coin}\n" + \
-            f"🟩: {response["result"]["list"][0]["ask1Price"]} | " +  \
-            f"🟥: {response["result"]["list"][0]["bid1Price"]}\n\n"
+            f'🟩: {response["result"]["list"][0]["ask1Price"]} | ' +  \
+            f'🟥: {response["result"]["list"][0]["bid1Price"]}\n\n'
 
 
 if __name__ == "__main__":
