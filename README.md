@@ -12,10 +12,11 @@ This project is a lightweight and efficient cryptocurrency cost notifier. It per
 BOT_TOKEN="your bot token here"
 COINS=ETH,BTC
 USERS="your tg ids" # 325667324,2175371325
-
+```
 ### 2. Run the Script
 
 To run the script, use the following command:
 
 ```bash
 bash script.sh
+```
