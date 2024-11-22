@@ -1,5 +1,4 @@
 import asyncio
-
 from aiogram import Bot
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
@@ -8,24 +7,16 @@ from functools import reduce
 
 from dotenv import load_dotenv
 import os
+
 load_dotenv()
 
 async def main():
-    # sranq eshelua
-    coins = [
-        "SHIB", "BTC"
-    ]
-
-    # iranc xarkelua
-    users = [
-        1893217856, 674136968
-    ]
     current_time = time.localtime()
     current_date_time = time.strftime("%Y-%m-%d %H:%M:%S", current_time)
     async with Bot(
         token=os.getenv("BOT_TOKEN"),
         default=DefaultBotProperties(
-            parse_mode=ParseMode.HTML,
+        parse_mode=ParseMode.HTML,
         ),
     ) as bot:
 
@@ -34,9 +25,9 @@ async def main():
                 chat_id=user_id,
                 text=f"{current_date_time}\n\n" + reduce(
                     lambda a, b: a + b,
-                    [get_prices(coin) for coin in coins]
+                    [get_prices(coin) for coin in os.getenv("COINS").split(",")]
                 )
-            ) for user_id in users]
+            ) for user_id in os.getenv("USERS").split(",")]
         except:
             pass
 
@@ -55,10 +46,6 @@ def get_prices(coin: str) -> dict:
         params=params
     ).json()
     if response["retMsg"] == "OK":
-        current_time = time.localtime()
-
-        current_date_time = time.strftime("%Y-%m-%d %H:%M:%S", current_time)
-
         return f"💰 {coin}\n" + \
             f'🟩: {response["result"]["list"][0]["ask1Price"]} | ' +  \
             f'🟥: {response["result"]["list"][0]["bid1Price"]}\n\n'

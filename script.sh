@@ -2,6 +2,8 @@
 
 while [ 1 ];
 do
+    # Change paths if neccessary
     python main.py
-    sleep 900
+    # Execute every 180 seconds
+    sleep 180
 done
